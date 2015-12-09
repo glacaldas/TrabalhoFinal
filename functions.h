@@ -29,6 +29,10 @@ void addpalavraunica(Palavrabase *base, char arr[], char arrnova[]);
 
 int ocorrencia(struct Palavrabase** tamanho, char arr[]);
 
+void split(Palavrafilho *head, Palavrafilho **front, Palavrafilho **back);
 
+Palavrafilho * merge(Palavrafilho *a, Palavrafilho *b);
+
+void mergeSort(Palavrafilho **headRef);
                   //  fprintf(entrada,"Consulta: %s\n",palavra);
                     //fprintf(entrada,"Sugestao: %s                  %.9f",calculo);
