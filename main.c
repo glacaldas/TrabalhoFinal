@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
                 }
                 else{
                     usavel=tamanho[strlen(palavra)-1];
-                    addpalavraunica(usavel,palavra,palavranova);
+                    addpalavraunica(usavel,palavra,palavranova); //ativa a funcao de adicionar a palavra na devida lista
                 }
                 palavra= palavranova;  //coloca a proxima palavra como a atual
             }
@@ -105,29 +105,29 @@ int main(int argc, char *argv[])
     }
     else{  //arquivo ok
         while(lista!=NULL){  //passa por todas as palavras pedidas na consulta
-            palavra=lista->nome;
-            fprintf(entrada,"Consulta: %s\n",palavra);
-            if(strlen(palavra)>13+1)
+            palavra=lista->nome; //pega o nome da palavra do momento
+            fprintf(entrada,"Consulta: %s\n",palavra); //printa no arquivo a primeira parte
+            if(strlen(palavra)>13+1)  //descobre onde ta o ponteiro da lista relevante
                 usavel=tamanho[13];
             else
                 usavel=tamanho[strlen(palavra)];
-            while(usavel!=NULL){
-                if(usavel->nome==palavra){
-                    valorB=usavel->contador;
-                    cabeca=usavel->filho;
-                    for(i=0;i<nconsulta;i++){
-                        valorC=ocorrencia(tamanho,cabeca->nome);
-                        valorA=cabeca->contador;
-                        fprintf(entrada,"Sugestao: %s        %0.9f\n",cabeca->nome,valorA/(sqrt(valorB*valorC)));
-                        cabeca=cabeca->prox;
+            while(usavel!=NULL){  //vai ate o fim da lista relevante
+                if(usavel->nome==palavra){ //se achou a palavra dada
+                    valorB=usavel->contador; //pega o valor freq(a)
+                    cabeca=usavel->filho;  //pega a lista de palavras consequentes
+                    for(i=0;i<nconsulta;i++){  //com relação ao argv[4], repete o numero de vezes
+                        valorC=ocorrencia(tamanho,cabeca->nome); //pega o valor freq(b)
+                        valorA=cabeca->contador;  //pega o valor freq(a,b)
+                        fprintf(entrada,"Sugestao: %s        %0.9f\n",cabeca->nome,valorA/(sqrt(valorB*valorC)));  //printa
+                        cabeca=cabeca->prox; //passa pra proxima palavra consequente da palavra dada
                     }
                 }
                 else
-                    usavel=usavel->next;
+                    usavel=usavel->next; //continua até achar
 
             }
-            fprintf(entrada,"\n");
-            lista=lista->prox;
+            fprintf(entrada,"\n");  //quebra de linha para a proxima saída
+            lista=lista->prox; //passa para a proxima palavra a ser consultada
         }
     }
 
