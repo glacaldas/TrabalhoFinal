@@ -8,9 +8,6 @@
 
 #define MAX 13
 
-
-/* Exemplo de abertura e tokeniza??o de um arquivo texto*/
-
 int main(int argc, char *argv[])
 {
     setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
@@ -57,8 +54,8 @@ int main(int argc, char *argv[])
                 palavranova = strtok (NULL, separador);  //pega a proxima palavra tambem
                 palavranova=tolower(palavra);
 
-                if(strlen(palavra)>14){
-                    usavel=tamanho[13];
+                if(strlen(palavra)>MAX+1){
+                    usavel=tamanho[MAX];
                     addpalavraunica(usavel, palavra, palavranova);  //ativa a função de adicionar as palavras maiores que 13 caracteres
                 }
                 else{
@@ -103,13 +100,13 @@ int main(int argc, char *argv[])
     else{  //arquivo ok
         while(lista!=NULL){  //passa por todas as palavras pedidas na consulta
             palavra=lista->nome;
-            if(strlen(palavra)>14)
-                    usavel=tamanho[13];
+            if(strlen(palavra)>MAX+1)
+                    usavel=tamanho[MAX];
             else
                 usavel=tamanho[strlen(palavra)-1];  //acha em qual arvore de tamanho esta a palavra de consulta
             while(usavel!=NULL){         //passa por todas as palavras na arvore
-                if(usavel->nome==palavra){
-                    fprintf(entrada,"Consulta: %s",palavra);
+                if(strcmp(usavel->nome==palavra)){
+                    fprintf(entrada,"Consulta: %s\n",palavra);
 
                 }
                 else
