@@ -127,6 +127,7 @@ int main(int argc, char *argv[])
 
             }
             fprintf(entrada,"\n");
+            lista=lista->prox;
         }
     }
 
