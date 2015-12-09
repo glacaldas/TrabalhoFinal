@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     struct Consulta *lista,*lista2;
     lista=lista2;
 
-    if(argc!=4){
+    if(argc!=4){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
         printf("Numero errado de argumentos.\n");
         return 1;
 
