@@ -12,15 +12,14 @@ int main(int argc, char *argv[])
 {
     setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
     clock_t start, end, elapsed;
-    int lineno=0,i,nconsulta=atoi(argv[4]); //pega o numero de palavras seguintes
+    int i,nconsulta=atoi(argv[4]); //pega o numero de palavras seguintes
     int valorA,valorB,valorC;
-    float calculo;
     //char nome_arq[]=argv[1];
     FILE * entrada;
 
 
 	struct Palavrabase *usavel;
-	struct Palavrabase** tamanho=malloc(sizeof(MAX));
+	struct Palavrabase* tamanho[13];
 	for(i=0;i<=13;i++) //inicializa as macro listas
         tamanho[i]=NULL;
 
@@ -28,16 +27,21 @@ int main(int argc, char *argv[])
 
     char *palavra, *palavranova,linha[1000]; // linhas a serem lidas do arquivo
     char separador[]= {" 0123456789,.&*%\?!;/-'@\"$#=><()][}{:\n\t"};
-    char *consultada;
 
     struct Consulta *lista,*lista2;
     lista=lista2;
 
-    if(argc!=4){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
+       if(argc!=5){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
+        printf("Numero errado de argumentos.\n");
+        return 1;
+        }
+
+    if(argc!=5){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
         printf("Numero errado de argumentos.\n");
         return 1;
 
     }
+
 
     entrada = fopen (argv[1], "r"); // abre o arquivo para leitura
     if (entrada == NULL) //se n?o conseguiu abrir o arquivo
@@ -70,7 +74,7 @@ int main(int argc, char *argv[])
         }
     }
     fclose (entrada); //fecha o arquivo
-
+    free(palavra);
     start=clock(); //inicia a contagem do tempo;
 
     entrada=fopen(argv[2],"r");
