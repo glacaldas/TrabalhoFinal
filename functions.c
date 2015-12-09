@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct {
+typedef struct Palavrabase {
   char  *nome;
   struct Palavrabase *next;
   struct Palavrafilho *filho;
@@ -19,6 +19,8 @@ typedef struct Consulta{
     struct Consulta *prox;
 
 } Consulta;
+
+
 
 
 void filho(Palavrafilho *base, char arr[]){
@@ -58,4 +60,29 @@ void addpalavraunica(Palavrabase *base, char arr[], char arrnova[]){
 	foop->next=NULL;
 	foop->filho=NULL;
 	base=foop;
+}
+
+
+int ocorrencia(struct Palavrabase** tamanho, char arr[]){
+    struct Palavrabase *base;
+    if(strlen(arr)>13+1)
+        base=tamanho[13];
+    else
+        base=tamanho[strlen(arr)];
+    while(base!=NULL){
+        if(base->nome==arr)
+            return base->contador;
+        else
+            base=base->next;
+
+    }
+
+
+
+
+
+
+
+
+
 }
