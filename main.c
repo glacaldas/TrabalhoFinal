@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
                 }
                 else{
                     usavel=tamanho[strlen(palavra)-1];
-                    addpalavraunica(usavel,palavra,palavranova); //ativa a funcao de adicionar a palavra na devida lista
+                    addpalavraunica(usavel,palavra,palavranova);
                 }
                 palavra= palavranova;  //coloca a proxima palavra como a atual
             }
@@ -82,12 +82,12 @@ int main(int argc, char *argv[])
     else{
         while (fgets(linha,1000,entrada)){
             palavra = strtok (linha, separador); //considera qquer caractere n?o alfab?tico como separador
-            palavra=tolower(palavra);
+            palavra=tolower(palavra); //deixa em caixa aixa
             while (palavra != NULL){
-                lista2->nome=palavra;
-                lista2->prox=malloc(sizeof(Consulta));
-                lista2=lista2->prox;
-                lista2->prox=NULL;
+                lista2->nome=palavra;  //aloca a palavra
+                lista2->prox=malloc(sizeof(Consulta));  //aloca memoria pro ponteiro pra proxima
+                lista2=lista2->prox; //coloca na proxima
+                lista2->prox=NULL;  //deixa como nula
             }
         }
 
@@ -96,8 +96,6 @@ int main(int argc, char *argv[])
     fclose(entrada);
 
 
-    usavel=malloc(sizeof(Palavrabase));
-
     entrada=fopen(argv[3],"w"); //abre o arquivo de saída para escrita
     if(entrada==NULL){   //se nao conseguiu abrir o arquivo
         printf("Erro ao abrir o arquivo %s",argv[3]);
@@ -105,29 +103,29 @@ int main(int argc, char *argv[])
     }
     else{  //arquivo ok
         while(lista!=NULL){  //passa por todas as palavras pedidas na consulta
-            palavra=lista->nome; //pega o nome da palavra do momento
-            fprintf(entrada,"Consulta: %s\n",palavra); //printa no arquivo a primeira parte
-            if(strlen(palavra)>13+1)  //descobre onde ta o ponteiro da lista relevante
-                usavel=tamanho[13];
+            palavra=lista->nome; //pega a palavra do momento
+            fprintf(entrada,"Consulta: %s\n",palavra);
+            if(strlen(palavra)>13+1)
+                usavel=tamanho[13]; //se a palavra tiver mais de 13 caracteres, vai pra ultima lista
             else
-                usavel=tamanho[strlen(palavra)];
-            while(usavel!=NULL){  //vai ate o fim da lista relevante
+                usavel=tamanho[strlen(palavra)]; //caso contrario, vai pra lista relevante
+            while(usavel!=NULL){ //ate o fim da lista relevante
                 if(usavel->nome==palavra){ //se achou a palavra dada
-                    valorB=usavel->contador; //pega o valor freq(a)
+                    valorB=usavel->contador;  //pega o valor freq(a)
                     cabeca=usavel->filho;  //pega a lista de palavras consequentes
-                    for(i=0;i<nconsulta;i++){  //com relação ao argv[4], repete o numero de vezes
-                        valorC=ocorrencia(tamanho,cabeca->nome); //pega o valor freq(b)
+                    for(i=0;i<nconsulta;i++){ //com relação ao argv[4], repete o numero de vezes
+                        valorC=ocorrencia(tamanho,cabeca->nome);//pega o valor freq(b)
                         valorA=cabeca->contador;  //pega o valor freq(a,b)
-                        fprintf(entrada,"Sugestao: %s        %0.9f\n",cabeca->nome,valorA/(sqrt(valorB*valorC)));  //printa
+                        fprintf(entrada,"Sugestao: %s        (%0.9f)\n",cabeca->nome,valorA/(sqrt(valorB*valorC))); //printa
                         cabeca=cabeca->prox; //passa pra proxima palavra consequente da palavra dada
                     }
                 }
                 else
-                    usavel=usavel->next; //continua até achar
+                    usavel=usavel->next;  //passa pra proxima
 
             }
-            fprintf(entrada,"\n");  //quebra de linha para a proxima saída
-            lista=lista->prox; //passa para a proxima palavra a ser consultada
+            fprintf(entrada,"\n");
+            lista=lista->prox; //passa pra proxima consulta
         }
     }
 
