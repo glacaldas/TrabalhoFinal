@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+typedef struct Palavrabase {
   char  *nome;
   struct Palavrabase *next;
   struct Palavrafilho *filho;
   int contador;
 } Palavrabase;
 
-typedef struct PalavraSeguinte{
+typedef struct Palavrafilho{
     char *nome;
     struct Palavrafilho *prox;
     int contador;
@@ -26,3 +26,9 @@ typedef struct Consulta{
 void filho(Palavrafilho *base, char arr[]);
 
 void addpalavraunica(Palavrabase *base, char arr[], char arrnova[]);
+
+int ocorrencia(struct Palavrabase** tamanho, char arr[]);
+
+
+                  //  fprintf(entrada,"Consulta: %s\n",palavra);
+                    //fprintf(entrada,"Sugestao: %s                  %.9f",calculo);
