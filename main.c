@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
     clock_t start, end, elapsed;
-    int i,nconsulta=atoi(argv[4]); //pega o numero de palavras seguintes
+    int i,nconsulta;
     int valorA,valorB,valorC;
     //char nome_arq[]=argv[1];
     FILE * entrada;
@@ -31,10 +31,11 @@ int main(int argc, char *argv[])
     struct Consulta *lista,*lista2;
     lista=lista2;
 
-       if(argc!=5){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
+    if(argc!=5){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
         printf("Numero errado de argumentos.\n");
         return 1;
-        }
+    }
+    nconsulta=atoi(argv[4]);//pega o numero de palavras seguintes
 
     if(argc!=5){  //se o numero de argumentos nao for correto, mostra mensagem de erro e fecha o programa
         printf("Numero errado de argumentos.\n");
